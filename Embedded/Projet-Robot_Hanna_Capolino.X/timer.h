@@ -6,18 +6,9 @@
  */
 
 #ifndef TIMER_H
-#define	TIMER_H
+#define TIMER_H
+void InitTimer23(void);
+void InitTimer1(void);
+#endif /? TIMER_H ?/
 
-#ifdef	__cplusplus
-extern "C" {
-#endif
-
-
-
-
-#ifdef	__cplusplus
-}
-#endif
-
-#endif	/* TIMER_H */
 
