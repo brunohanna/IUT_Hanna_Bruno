@@ -10,6 +10,7 @@
 #include <xc.h>
 #include "ChipConfig.h"
 #include "IO.h"
+#include "timer.h"
 
 int main(void)
 {
@@ -30,10 +31,9 @@ int main(void)
     /****************************************************************************************************/
     // Boucle Principale
     /****************************************************************************************************/
+    InitTimer23();
+    InitTimer1();
     while (1)
     {
-    LED_BLANCHE = !LED_BLANCHE;
-    LED_BLEUE = !LED_BLEUE;
-    LED_ORANGE = !LED_ORANGE;
     } // fin main
 }
