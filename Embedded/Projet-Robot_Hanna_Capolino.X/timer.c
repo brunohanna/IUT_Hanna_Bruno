@@ -13,7 +13,7 @@ void InitTimer23(void) {
     TMR3 = 0x00; // Clear 32-bit Timer (msw)
     TMR2 = 0x00; // Clear 32-bit Timer (lsw)
     PR3 = 0x04C4; // Load 32-bit period value (msw)
-    PR2 = 0xB400; // Load 32-bit period value (lsw)
+    PR2 = 0xB400; // Load 32-bit period value (lsw) 
     IPC2bits.T3IP = 0x01; // Set Timer3 Interrupt Priority Level
     IFS0bits.T3IF = 0; // Clear Timer3 Interrupt Flag
     IEC0bits.T3IE = 1; // Enable Timer3 interrupt
