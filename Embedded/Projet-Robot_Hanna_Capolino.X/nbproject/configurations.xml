@@ -4,6 +4,12 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>ChipConfig.h</itemPath>
+      <itemPath>IO.h</itemPath>
+      <itemPath>PWM.h</itemPath>
+      <itemPath>Robot.h</itemPath>
+      <itemPath>timer.h</itemPath>
+      <itemPath>Toolbox.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -13,17 +19,18 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>ChipConfig.c</itemPath>
-      <itemPath>ChipConfig.h</itemPath>
       <itemPath>IO.c</itemPath>
-      <itemPath>IO.h</itemPath>
       <itemPath>timer.c</itemPath>
-      <itemPath>timer.h</itemPath>
+      <itemPath>Robot.c</itemPath>
+      <itemPath>ToolBox.c</itemPath>
+      <itemPath>PWM.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <itemPath>main.c</itemPath>
     <itemPath>main.c</itemPath>
   </logicalFolder>
   <sourceRootList>

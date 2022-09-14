@@ -1,6 +1,6 @@
 /* 
  * File:   main.c
- * Author: TP-EO-1
+ * Author: TP-EO-1 // CAPOLINO HANNA ESE B
  *
  * Created on 2 septembre 2022, 15:15
  */
@@ -11,9 +11,9 @@
 #include "ChipConfig.h"
 #include "IO.h"
 #include "timer.h"
+#include "PWM.h"
 
-int main(void)
-{
+int main(void) {
     /***************************************************************************************************/
     //Initialisation de l?oscillateur
     /****************************************************************************************************/
@@ -31,9 +31,10 @@ int main(void)
     /****************************************************************************************************/
     // Boucle Principale
     /****************************************************************************************************/
+    InitPWM();
     InitTimer23();
     InitTimer1();
-    while (1)
-    {
-    } // fin main
-}
+    
+        while (1) {
+        } // fin main
+    }
