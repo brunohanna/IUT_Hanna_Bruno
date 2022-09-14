@@ -239,7 +239,7 @@ __FOSCSEL
 
 __FGS             0x0557fa          0x2
  *(__FGS.sec*)
- __FGS.sec        0x0557fa          0x2 /CW/_FGS‡ì
+ __FGS.sec        0x0557fa          0x2 /CW/_FGSàV÷
                   0x0557fa                  __FGS.sec
 
 __FUID0
@@ -257,12 +257,12 @@ __FUID3
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x194d
+.debug_info       0x000000       0x198d
  *(.debug_info)
- .debug_info      0x000000        0x543 build/default/production/ChipConfig.o
- .debug_info      0x000543        0x463 build/default/production/IO.o
- .debug_info      0x0009a6        0xc2b build/default/production/timer.o
- .debug_info      0x0015d1        0x37c build/default/production/main.o
+ .debug_info      0x000000        0x553 build/default/production/ChipConfig.o
+ .debug_info      0x000553        0x473 build/default/production/IO.o
+ .debug_info      0x0009c6        0xc3b build/default/production/timer.o
+ .debug_info      0x001601        0x38c build/default/production/main.o
  *(.gnu.linkonce.wi.*)
 
 .debug_abbrev     0x000000        0x2c2
@@ -2155,7 +2155,7 @@ LOAD c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a
 LOAD c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\liblega-c-elf.a
 END GROUP
 OUTPUT(dist/default/production/Projet-Robot_Hanna_Capolino.X.production.elf elf32-pic30)
-LOAD /CW/_FGS‡ì
+LOAD /CW/_FGSàV÷
 LOAD default_isr
 
 .debug_pubtypes
