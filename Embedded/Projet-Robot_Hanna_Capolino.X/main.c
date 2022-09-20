@@ -14,6 +14,11 @@
 #include "PWM.h"
 #include "ADC.h"
 
+
+unsigned int ADCValue0;
+unsigned int ADCValue1;
+unsigned int ADCValue2;
+
 int main(void) {
     /***************************************************************************************************/
     //Initialisation de l?oscillateur
@@ -38,5 +43,13 @@ int main(void) {
     InitTimer1();
     
         while (1) {
+            if(ADCIsConversionFinished())
+            {
+                unsigned int * result = ADCGetResult();
+                ADCValue0 = result[0];
+                ADCValue1 = result[1];
+                ADCValue2 = result[2];
+                ADCClearConversionFinishedFlag();
+            }
         } // fin main
     }

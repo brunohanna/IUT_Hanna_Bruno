@@ -115,22 +115,21 @@ Default Scalar Model: Small
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200               0x4ac           0x702  (1794)
-.text                        0x6ac               0x40e           0x615  (1557)
-.dinit                       0xaba                0x1c            0x2a  (42)
-.text                        0xad6                0x16            0x21  (33)
+.text                        0x6ac               0x448           0x66c  (1644)
+.dinit                       0xaf4                0x22            0x33  (51)
 
-                 Total "program" memory used (bytes):          0xd62  (3426) <1%
+                 Total "program" memory used (bytes):          0xda1  (3489) <1%
 
 
 "data" Memory  [Origin = 0x1000, Length = 0xc000]
 
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
-.nbss                       0x1000                   0             0xe  (14)
-.ndata                      0x100e                   0             0x2  (2)
-.bss                        0x1010                   0            0x12  (18)
+.nbss                       0x1000                   0            0x14  (20)
+.ndata                      0x1014                   0             0x2  (2)
+.bss                        0x1016                   0            0x12  (18)
 
-                 Total "data" memory used (bytes):           0x22  (34) <1%
+                 Total "data" memory used (bytes):           0x28  (40) <1%
 
 
 Dynamic Memory Usage
@@ -138,9 +137,9 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                       0x1022                              0xbfde  (49118)
+stack                       0x1028                              0xbfd8  (49112)
 
-                 Maximum dynamic memory (bytes):         0xbfde  (49118)
+                 Maximum dynamic memory (bytes):         0xbfd8  (49112)
 
 Info: Project is using a large data memory model when small data memory model is sufficient.
 
@@ -149,17 +148,23 @@ External Symbols in Data Memory (by address):
 
                     0x1000                  _ADCResultIndex
                     0x100a                  _ADCConversionFinishedFlag
-                    0x100c                  _toggle
-                    0x100e                  _acceleration
-                    0x1010                  _robotState
+                    0x100c                  _ADCValue0
+                    0x100e                  _ADCValue1
+                    0x1010                  _ADCValue2
+                    0x1012                  _toggle
+                    0x1014                  _acceleration
+                    0x1016                  _robotState
 
 External Symbols in Data Memory (by name):
 
                     0x100a                  _ADCConversionFinishedFlag
                     0x1000                  _ADCResultIndex
-                    0x100e                  _acceleration
-                    0x1010                  _robotState
-                    0x100c                  _toggle
+                    0x100c                  _ADCValue0
+                    0x100e                  _ADCValue1
+                    0x1010                  _ADCValue2
+                    0x1014                  _acceleration
+                    0x1016                  _robotState
+                    0x1012                  _toggle
 
 External Symbols in Program Memory (by address):
 
@@ -207,8 +212,8 @@ External Symbols in Program Memory (by address):
                   0x0009f2                  _InitOscillator
                   0x000a48                  _InitTimer23
                   0x000a7a                  _InitTimer1
-                  0x000a98                  _InitIO
-                  0x000ad6                  _main
+                  0x000a98                  _main
+                  0x000ad2                  _InitIO
                   0x0557fa                  __FGS.sec
 
 External Symbols in Program Memory (by name):
@@ -220,7 +225,7 @@ External Symbols in Program Memory (by name):
                   0x000858                  _Abs
                   0x00094e                  _DegreeToRadian
                   0x000966                  _InitADC1
-                  0x000a98                  _InitIO
+                  0x000ad2                  _InitIO
                   0x0009f2                  _InitOscillator
                   0x0006ac                  _InitPWM
                   0x000a7a                  _InitTimer1
@@ -259,7 +264,7 @@ External Symbols in Program Memory (by name):
                   0x000580                  __funpack2
                   0x00023c                  __psv_init
                   0x000200                  __resetPRI
-                  0x000ad6                  _main
+                  0x000a98                  _main
 
 Memory Configuration
 
@@ -406,7 +411,7 @@ __FOSCSEL
 
 __FGS             0x0557fa          0x2
  *(__FGS.sec*)
- __FGS.sec        0x0557fa          0x2 /CW/_FGS€ 
+ __FGS.sec        0x0557fa          0x2 /CW/_FGS€h
                   0x0557fa                  __FGS.sec
 
 __FUID0
@@ -424,7 +429,7 @@ __FUID3
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x3eb1
+.debug_info       0x000000       0x3f34
  *(.debug_info)
  .debug_info      0x000000        0x543 build/default/production/ChipConfig.o
  .debug_info      0x000543        0x603 build/default/production/IO.o
@@ -433,10 +438,10 @@ __FUID3
  .debug_info      0x001956        0x211 build/default/production/ToolBox.o
  .debug_info      0x001b67        0xd93 build/default/production/PWM.o
  .debug_info      0x0028fa       0x123b build/default/production/ADC.o
- .debug_info      0x003b35        0x37c build/default/production/main.o
+ .debug_info      0x003b35        0x3ff build/default/production/main.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x65f
+.debug_abbrev     0x000000        0x6a4
  *(.debug_abbrev)
  .debug_abbrev    0x000000         0xc3 build/default/production/ChipConfig.o
  .debug_abbrev    0x0000c3         0x99 build/default/production/IO.o
@@ -445,9 +450,9 @@ __FUID3
  .debug_abbrev    0x0002d3         0x6d build/default/production/ToolBox.o
  .debug_abbrev    0x000340        0x158 build/default/production/PWM.o
  .debug_abbrev    0x000498        0x13b build/default/production/ADC.o
- .debug_abbrev    0x0005d3         0x8c build/default/production/main.o
+ .debug_abbrev    0x0005d3         0xd1 build/default/production/main.o
 
-.debug_line       0x000000        0x7c5
+.debug_line       0x000000        0x7d0
  *(.debug_line)
  .debug_line      0x000000        0x11e build/default/production/ChipConfig.o
  .debug_line      0x00011e        0x11c build/default/production/IO.o
@@ -456,7 +461,7 @@ __FUID3
  .debug_line      0x0003b0         0x54 build/default/production/ToolBox.o
  .debug_line      0x000404        0x15b build/default/production/PWM.o
  .debug_line      0x00055f        0x14d build/default/production/ADC.o
- .debug_line      0x0006ac        0x119 build/default/production/main.o
+ .debug_line      0x0006ac        0x124 build/default/production/main.o
 
 .debug_frame      0x000000        0x32a
  *(.debug_frame)
@@ -468,7 +473,7 @@ __FUID3
  .debug_frame     0x000242         0xba build/default/production/ADC.o
  .debug_frame     0x0002fc         0x2e build/default/production/main.o
 
-.debug_str        0x000000        0x1ab
+.debug_str        0x000000        0x1c9
  *(.debug_str)
  .debug_str       0x000000         0x16 build/default/production/ChipConfig.o
  .debug_str       0x000016         0x1e build/default/production/IO.o
@@ -476,7 +481,7 @@ __FUID3
  .debug_str       0x00008d          0x6 build/default/production/ToolBox.o
  .debug_str       0x000093         0x55 build/default/production/PWM.o
  .debug_str       0x0000e8         0xb1 build/default/production/ADC.o
- .debug_str       0x000199         0x12 build/default/production/main.o
+ .debug_str       0x000199         0x30 build/default/production/main.o
 
 .debug_loc
  *(.debug_loc)
@@ -485,7 +490,7 @@ __FUID3
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000        0x26c
+                  0x000000        0x296
  *(.debug_pubnames)
  .debug_pubnames
                   0x000000         0x25 build/default/production/ChipConfig.o
@@ -502,7 +507,7 @@ __FUID3
  .debug_pubnames
                   0x00017f         0xd2 build/default/production/ADC.o
  .debug_pubnames
-                  0x000251         0x1b build/default/production/main.o
+                  0x000251         0x45 build/default/production/main.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -2354,7 +2359,7 @@ LOAD c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a
 LOAD c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\liblega-c-elf.a
 END GROUP
 OUTPUT(dist/default/production/Projet-Robot_Hanna_Capolino.X.production.elf elf32-pic30)
-LOAD /CW/_FGS€ 
+LOAD /CW/_FGS€h
 LOAD default_isr
 LOAD data_init
 
@@ -2424,20 +2429,24 @@ __c30_signature
  __c30_signature
                   0x00063c          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(floatundisf.epeo)
 
-.nbss               0x1000          0xe
+.nbss               0x1000         0x14
  .nbss              0x1000          0xc build/default/production/ADC.o
                     0x1000                  _ADCResultIndex
                     0x100a                  _ADCConversionFinishedFlag
- .nbss              0x100c          0x2 build/default/production/timer.o
-                    0x100c                  _toggle
+ .nbss              0x100c          0x6 build/default/production/main.o
+                    0x100c                  _ADCValue0
+                    0x100e                  _ADCValue1
+                    0x1010                  _ADCValue2
+ .nbss              0x1012          0x2 build/default/production/timer.o
+                    0x1012                  _toggle
 
-.ndata              0x100e          0x2
- .ndata             0x100e          0x2 build/default/production/PWM.o
-                    0x100e                  _acceleration
+.ndata              0x1014          0x2
+ .ndata             0x1014          0x2 build/default/production/PWM.o
+                    0x1014                  _acceleration
 
-.bss                0x1010         0x12
- .bss               0x1010         0x12 build/default/production/Robot.o
-                    0x1010                  _robotState
+.bss                0x1016         0x12
+ .bss               0x1016         0x12 build/default/production/Robot.o
+                    0x1016                  _robotState
 
 .config_IESO      0x0557f8          0x2
  .config_IESO     0x0557f8          0x2 build/default/production/ChipConfig.o
@@ -2472,7 +2481,7 @@ __c30_signature
  .ivt._AD1Interrupt
                   0x00002e          0x2 build/default/production/ADC.o
 
-.text             0x0006ac        0x40e
+.text             0x0006ac        0x448
  .text            0x0006ac        0x1ac build/default/production/PWM.o
                   0x0006ac                  _InitPWM
                   0x0006e4                  _PWMUpdateSpeed
@@ -2495,12 +2504,10 @@ __c30_signature
  .text            0x000a48         0x50 build/default/production/timer.o
                   0x000a48                  _InitTimer23
                   0x000a7a                  _InitTimer1
- .text            0x000a98         0x22 build/default/production/IO.o
-                  0x000a98                  _InitIO
+ .text            0x000a98         0x3a build/default/production/main.o
+                  0x000a98                  _main
+ .text            0x000ad2         0x22 build/default/production/IO.o
+                  0x000ad2                  _InitIO
 
-.dinit            0x000aba         0x1c
- .dinit           0x000aba         0x1c data_init
-
-.text             0x000ad6         0x16
- .text            0x000ad6         0x16 build/default/production/main.o
-                  0x000ad6                  _main
+.dinit            0x000af4         0x22
+ .dinit           0x000af4         0x22 data_init

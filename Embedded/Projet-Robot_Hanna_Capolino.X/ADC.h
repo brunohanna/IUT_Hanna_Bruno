@@ -37,4 +37,5 @@ unsigned int * ADCGetResult(void);
 unsigned char ADCIsConversionFinished(void);
 void ADCClearConversionFinishedFlag(void);
 
+
 #endif	/* ADC_H */
