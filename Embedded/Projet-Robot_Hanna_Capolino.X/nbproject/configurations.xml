@@ -11,6 +11,7 @@
       <itemPath>timer.h</itemPath>
       <itemPath>Toolbox.h</itemPath>
       <itemPath>ADC.h</itemPath>
+      <itemPath>main.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
