@@ -33,6 +33,7 @@
 
 void OperatingSystemLoop(void);
 void SetNextRobotStateInAutomaticMode();
+
 #ifdef	__cplusplus
 extern "C" {
 #endif
