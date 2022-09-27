@@ -27,13 +27,13 @@ void OperatingSystemLoop(void) {
             stateRobot = STATE_ATTENTE_EN_COURS;
 
         case STATE_ATTENTE_EN_COURS:
-            if (timestamp > 1000)
+            if (timestamp > 5000)
                 stateRobot = STATE_AVANCE;
             break;
 
         case STATE_AVANCE:
-            PWMSetSpeedConsigne(30, MOTEUR_DROIT);
-            PWMSetSpeedConsigne(30, MOTEUR_GAUCHE);
+            PWMSetSpeedConsigne(-25, MOTEUR_DROIT);
+            PWMSetSpeedConsigne(25, MOTEUR_GAUCHE);
             stateRobot = STATE_AVANCE_EN_COURS;
             break;
         case STATE_AVANCE_EN_COURS:
@@ -41,7 +41,7 @@ void OperatingSystemLoop(void) {
             break;
 
         case STATE_TOURNE_GAUCHE:
-            PWMSetSpeedConsigne(30, MOTEUR_DROIT);
+            PWMSetSpeedConsigne(-25, MOTEUR_DROIT);
             PWMSetSpeedConsigne(0, MOTEUR_GAUCHE);
             stateRobot = STATE_TOURNE_GAUCHE_EN_COURS;
             break;
@@ -51,7 +51,7 @@ void OperatingSystemLoop(void) {
 
         case STATE_TOURNE_DROITE:
             PWMSetSpeedConsigne(0, MOTEUR_DROIT);
-            PWMSetSpeedConsigne(30, MOTEUR_GAUCHE);
+            PWMSetSpeedConsigne(25, MOTEUR_GAUCHE);
             stateRobot = STATE_TOURNE_DROITE_EN_COURS;
             break;
         case STATE_TOURNE_DROITE_EN_COURS:
@@ -59,7 +59,7 @@ void OperatingSystemLoop(void) {
             break;
 
         case STATE_TOURNE_SUR_PLACE_GAUCHE:
-            PWMSetSpeedConsigne(15, MOTEUR_DROIT);
+            PWMSetSpeedConsigne(-15, MOTEUR_DROIT);
             PWMSetSpeedConsigne(-15, MOTEUR_GAUCHE);
             stateRobot = STATE_TOURNE_SUR_PLACE_GAUCHE_EN_COURS;
             break;
@@ -68,7 +68,7 @@ void OperatingSystemLoop(void) {
             break;
 
         case STATE_TOURNE_SUR_PLACE_DROITE:
-            PWMSetSpeedConsigne(-15, MOTEUR_DROIT);
+            PWMSetSpeedConsigne(15, MOTEUR_DROIT);
             PWMSetSpeedConsigne(15, MOTEUR_GAUCHE);
             stateRobot = STATE_TOURNE_SUR_PLACE_DROITE_EN_COURS;
             break;
@@ -83,9 +83,10 @@ void OperatingSystemLoop(void) {
 }
 
 unsigned char nextStateRobot = 0;
+unsigned char positionObstacle = PAS_D_OBSTACLE;
 
 void SetNextRobotStateInAutomaticMode() {
-    unsigned char positionObstacle = PAS_D_OBSTACLE;
+    
 
     //Détermination de la position des obstacles en fonction des télémètres
     if (robotState.distanceTelemetreDroit < 30 &&
@@ -110,8 +111,9 @@ void SetNextRobotStateInAutomaticMode() {
         nextStateRobot = STATE_TOURNE_GAUCHE;
     else if (positionObstacle == OBSTACLE_A_GAUCHE)
         nextStateRobot = STATE_TOURNE_DROITE;
-    else if (positionObstacle == OBSTACLE_EN_FACE)
-        nextStateRobot = STATE_TOURNE_SUR_PLACE_GAUCHE;
+    else if (positionObstacle == OBSTACLE_EN_FACE){
+            nextStateRobot = STATE_TOURNE_SUR_PLACE_GAUCHE;
+    }
 
     //Si l?on n?est pas dans la transition de l?étape en cours
     if (nextStateRobot != stateRobot - 1)
@@ -142,33 +144,35 @@ int main(void) {
     InitTimer1();
 
     while (1) {
-        //        if (ADCIsConversionFinished()) {
-        //            ADCClearConversionFinishedFlag();
-        //            unsigned int * result = ADCGetResult();
-        //            float volts [3];
-        //            int i;
-        //            for (i = 0; i < 3; i++) {
-        //                volts[i] = ((float) result [i])* 3.3 / 4096 * 3.2;
-        //            }
-        //            robotState.distanceTelemetreGauche = 34 / volts[2] - 5;
-        //            robotState.distanceTelemetreCentre = 34 / volts[1] - 5;
-        //            robotState.distanceTelemetreDroit = 34 / volts[0] - 5;
-        //            if (robotState.distanceTelemetreDroit < 30) {
-        //                LED_ORANGE = 1;
-        //            } else {
-        //                LED_ORANGE = 0;
-        //            }
-        //            if (robotState.distanceTelemetreCentre < 30) {
-        //                LED_BLEUE = 1;
-        //            } else {
-        //                LED_BLEUE = 0;
-        //            }
-        //            if (robotState.distanceTelemetreGauche < 30) {
-        //                LED_BLANCHE = 1;
-        //            } else {
-        //                LED_BLANCHE = 0;
-        //            }
-        //        }
+        SetNextRobotStateInAutomaticMode();
+        OperatingSystemLoop();
+        if (ADCIsConversionFinished()) {
+            ADCClearConversionFinishedFlag();
+            unsigned int * result = ADCGetResult();
+            float volts [3];
+            int i;
+            for (i = 0; i < 3; i++) {
+                volts[i] = ((float) result [i])* 3.3 / 4096 * 3.2;
+            }
+            robotState.distanceTelemetreGauche = 34 / volts[2] - 5;
+            robotState.distanceTelemetreCentre = 34 / volts[1] - 5;
+            robotState.distanceTelemetreDroit = 34 / volts[0] - 5;
+            if (robotState.distanceTelemetreDroit < 30) {
+                LED_ORANGE = 1;
+            } else {
+                LED_ORANGE = 0;
+            }
+            if (robotState.distanceTelemetreCentre < 30) {
+                LED_BLEUE = 1;
+            } else {
+                LED_BLEUE = 0;
+            }
+            if (robotState.distanceTelemetreGauche < 30) {
+                LED_BLANCHE = 1;
+            } else {
+                LED_BLANCHE = 0;
+            }
+        }
     }
 
 

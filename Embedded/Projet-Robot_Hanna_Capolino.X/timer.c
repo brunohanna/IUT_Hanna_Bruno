@@ -52,7 +52,7 @@ void __attribute__((interrupt, no_auto_psv)) _T3Interrupt(void) {
 void InitTimer1(void) {
     //Timer1 pour horodater les mesures (1ms)
     T1CONbits.TON = 0; // Disable Timer
-    SetFreqTimer1(2.5); //Set Frequency and prescale
+    SetFreqTimer1(250); //Set Frequency and prescale
     //11 = 1:256 prescale value
     //10 = 1:64 prescale value
     //01 = 1:8 prescale value
@@ -69,7 +69,6 @@ void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void) {
     IFS0bits.T1IF = 0;
     PWMUpdateSpeed();
     ADC1StartConversionSequence();
-    LED_BLEUE = !LED_BLEUE;
 }
 
 void SetFreqTimer1(float freq) {
@@ -119,7 +118,7 @@ void SetFreqTimer4(float freq) {
         PR4 = (int) (FCY / freq);
 }
 
-void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void) {
+void __attribute__((interrupt, no_auto_psv)) _T4Interrupt(void) {
     IFS1bits.T4IF = 0;
     timestamp++;
 }
