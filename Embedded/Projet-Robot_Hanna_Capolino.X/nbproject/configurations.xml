@@ -12,6 +12,7 @@
       <itemPath>Toolbox.h</itemPath>
       <itemPath>ADC.h</itemPath>
       <itemPath>main.h</itemPath>
+      <itemPath>os.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -28,6 +29,7 @@
       <itemPath>PWM.c</itemPath>
       <itemPath>ADC.c</itemPath>
       <itemPath>main.c</itemPath>
+      <itemPath>os.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -212,9 +214,6 @@
       <ICD3PlatformTool>
         <property key="firmware.download.all" value="false"/>
       </ICD3PlatformTool>
-      <Tool>
-        <property key="firmware.download.all" value="false"/>
-      </Tool>
     </conf>
   </confs>
 </configurationDescriptor>

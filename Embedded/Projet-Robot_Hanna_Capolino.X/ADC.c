@@ -1,5 +1,12 @@
 #include <xc.h>
-#include "adc.h"
+#include "ChipConfig.h"
+#include "IO.h"
+#include "timer.h"
+#include "PWM.h"
+#include "ADC.h"
+#include "robot.h"
+#include "main.h"
+#include "os.h"
 
 unsigned char ADCResultIndex = 0;
 static unsigned int ADCResult[4];
