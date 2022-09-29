@@ -46,9 +46,9 @@ int main(void) {
         if (ADCIsConversionFinished()) {
             ADCClearConversionFinishedFlag();
             unsigned int * result = ADCGetResult();
-            float volts [3];
+            float volts [5];
             int i;
-            for (i = 0; i < 3; i++) {
+            for (i = 0; i < 5; i++) {
                 volts[i] = ((float) result [i])* 3.3 / 4096 * 3.2;
             }
             robotState.distanceTelemetreGauche = 34 / volts[2] - 5;
