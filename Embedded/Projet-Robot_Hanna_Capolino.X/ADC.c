@@ -83,11 +83,11 @@ AD1CON1bits.ADON = 1; // Turn on the A/D converter
 void __attribute__((interrupt, no_auto_psv)) _AD1Interrupt(void)
 {
 IFS0bits.AD1IF = 0; // Clear Timer3 Interrupt Flag
-ADCResult[0] = ADC1BUF0;// Read the AN-scan input 1 conversion result   15(E15)
-ADCResult[1] = ADC1BUF1;// Read the AN1 conversion result               16(G9)
+ADCResult[0] = ADC1BUF3;// Read the AN-scan input 1 conversion result   15(E15)
+ADCResult[1] = ADC1BUF4;// Read the AN1 conversion result               16(G9)
 ADCResult[2] = ADC1BUF2;// Read the AN2 conversion result               11(C11)
-ADCResult[3] = ADC1BUF3;// Read the AN3 conversion result               6(C0)
-ADCResult[4] = ADC1BUF4;// Read the AN4 conversion result               3(B1)
+ADCResult[3] = ADC1BUF1;// Read the AN3 conversion result               6(C0)
+ADCResult[4] = ADC1BUF0;// Read the AN4 conversion result               3(B1)
 ADCConversionFinishedFlag = 1;
 }
 

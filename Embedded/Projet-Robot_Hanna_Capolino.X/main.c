@@ -51,9 +51,11 @@ int main(void) {
             for (i = 0; i < 5; i++) {
                 volts[i] = ((float) result [i])* 3.3 / 4096 * 3.2;
             }
-            robotState.distanceTelemetreGauche = 34 / volts[2] - 5;
-            robotState.distanceTelemetreCentre = 34 / volts[1] - 5;
-            robotState.distanceTelemetreDroit = 34 / volts[0] - 5;
+            robotState.distanceTelemetreExGauche = 34 / volts[0] - 5;
+            robotState.distanceTelemetreGauche = 34 / volts[1] - 5;
+            robotState.distanceTelemetreCentre = 34 / volts[2] - 5;
+            robotState.distanceTelemetreDroit = 34 / volts[3] - 5;
+            robotState.distanceTelemetreExDroit = 34 / volts[4] - 5;
             if (robotState.distanceTelemetreDroit < 30) {
                 LED_ORANGE = 1;
             } else {
