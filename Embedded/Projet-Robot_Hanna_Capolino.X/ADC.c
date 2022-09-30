@@ -1,4 +1,4 @@
-#include <xc.h>
+                                                                                                                                                                            #include <xc.h>
 #include "ChipConfig.h"
 #include "IO.h"
 #include "timer.h"
@@ -65,7 +65,7 @@ ANSELBbits.ANSB1 = 1;   // EXDROIT
 
 
 AD1CSSLbits.CSS15=1; // Enable AN15 for scan
-AD1CSSLbits.CSS1=1; // Enable AN1 for scan
+AD1CSSLbits.CSS3=1; // Enable AN1 for scan
 AD1CSSLbits.CSS6=1; // Enable AN6 for scan
 AD1CSSLbits.CSS11=1; // Enable AN11 for scan
 AD1CSSHbits.CSS16=1; // Enable AN16 for scan

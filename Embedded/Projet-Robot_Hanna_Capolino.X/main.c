@@ -41,8 +41,10 @@ int main(void) {
     InitTimer1();
 
     while (1) {
-        SetNextRobotStateInAutomaticMode();
-        OperatingSystemLoop();
+            PWMSetSpeedConsigne(0, MOTEUR_DROIT);
+            PWMSetSpeedConsigne(0, MOTEUR_GAUCHE);
+//        SetNextRobotStateInAutomaticMode();
+//        OperatingSystemLoop();
         if (ADCIsConversionFinished()) {
             ADCClearConversionFinishedFlag();
             unsigned int * result = ADCGetResult();
