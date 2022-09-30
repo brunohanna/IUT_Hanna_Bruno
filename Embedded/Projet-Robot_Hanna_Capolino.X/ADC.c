@@ -6,7 +6,8 @@
 #include "ADC.h"
 #include "robot.h"
 #include "main.h"
-#include "os.h"
+//#include "os.h"
+#include "os5C.h"
 
 unsigned char ADCResultIndex = 0;
 static unsigned int ADCResult[5];

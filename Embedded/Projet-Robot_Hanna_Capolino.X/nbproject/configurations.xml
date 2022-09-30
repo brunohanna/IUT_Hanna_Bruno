@@ -13,6 +13,7 @@
       <itemPath>ADC.h</itemPath>
       <itemPath>main.h</itemPath>
       <itemPath>os.h</itemPath>
+      <itemPath>os5C.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -30,6 +31,7 @@
       <itemPath>ADC.c</itemPath>
       <itemPath>main.c</itemPath>
       <itemPath>os.c</itemPath>
+      <itemPath>os5C.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -287,6 +289,8 @@
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="0-557eb"/>
         <property key="poweroptions.powerenable" value="false"/>
+        <property key="programmerToGoFilePath"
+                  value="C:/Github/IUT_Hanna_Bruno/Embedded/Projet-Robot_Hanna_Capolino.X/debug/default/Projet-Robot_Hanna_Capolino_ptg"/>
         <property key="programoptions.donoteraseauxmem" value="false"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.ledbrightness" value="5"/>
@@ -415,6 +419,10 @@
                   value="Press to select which tool pack to use"/>
         <property key="voltagevalue" value="3.25"/>
       </Tool>
+      <item path="os.c" ex="true" overriding="false">
+      </item>
+      <item path="os.h" ex="true" overriding="false">
+      </item>
     </conf>
   </confs>
 </configurationDescriptor>

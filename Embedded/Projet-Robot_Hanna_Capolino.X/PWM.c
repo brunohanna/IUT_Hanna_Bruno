@@ -6,7 +6,7 @@
 #include "ToolBox.h"
 
 #define PWMPER 40.0
-unsigned int acceleration = 10;
+unsigned int acceleration = 100;
 
 void InitPWM(void) {
     PTCON2bits.PCLKDIV = 0b000; //Divide by 1
@@ -28,38 +28,38 @@ void InitPWM(void) {
     PTCONbits.PTEN = 1;
 }
 
-//void PWMSetSpeed(float vitesseEnPourcents, int DIRECTION) {
-//    if (DIRECTION == MOTEUR_GAUCHE) {
-//        if (vitesseEnPourcents >= 0) {
-//            MOTEUR_GAUCHE_L_PWM_ENABLE = 0; //Pilotage de la pin en mode IO
-//            MOTEUR_GAUCHE_L_IO_OUTPUT = 1; //Mise à 1 de la pin
-//            MOTEUR_GAUCHE_H_PWM_ENABLE = 1; //Pilotage de la pin en mode PWM
-//        } else {
-//            MOTEUR_GAUCHE_H_PWM_ENABLE = 0; //Pilotage de la pin en mode IO
-//            MOTEUR_GAUCHE_H_IO_OUTPUT = 1; //Mise à 1 de la pin
-//            MOTEUR_GAUCHE_L_PWM_ENABLE = 1; //Pilotage de la pin en mode PWM
-//        }
-//        robotState.vitesseGaucheCommandeCourante = Abs(vitesseEnPourcents);
-//        MOTEUR_GAUCHE_DUTY_CYCLE = Abs(robotState.vitesseGaucheCommandeCourante * PWMPER);
-//    }
-//
-//    if (DIRECTION == MOTEUR_DROIT) {
-//        if (vitesseEnPourcents >= 0) {
-//            MOTEUR_DROIT_L_PWM_ENABLE = 0; //Pilotage de la pin en mode IO
-//            MOTEUR_DROIT_L_IO_OUTPUT = 1; //Mise à 1 de la pin
-//            MOTEUR_DROIT_H_PWM_ENABLE = 1; //Pilotage de la pin en mode PWM
-//        } else {
-//            MOTEUR_DROIT_H_PWM_ENABLE = 0; //Pilotage de la pin en mode IO
-//            MOTEUR_DROIT_H_IO_OUTPUT = 1; //Mise à 1 de la pin
-//            MOTEUR_DROIT_L_PWM_ENABLE = 1; //Pilotage de la pin en mode PWM
-//        }
-//        robotState.vitesseDroiteCommandeCourante = Abs(vitesseEnPourcents);
-//        MOTEUR_DROIT_DUTY_CYCLE = Abs(robotState.vitesseDroiteCommandeCourante * PWMPER);
-//    }
-//}
+void PWMSetSpeed(float vitesseEnPourcents, int DIRECTION) {
+    if (DIRECTION == MOTEUR_GAUCHE) {
+        if (vitesseEnPourcents >= 0) {
+            MOTEUR_GAUCHE_L_PWM_ENABLE = 0; //Pilotage de la pin en mode IO
+            MOTEUR_GAUCHE_L_IO_OUTPUT = 1; //Mise à 1 de la pin
+            MOTEUR_GAUCHE_H_PWM_ENABLE = 1; //Pilotage de la pin en mode PWM
+        } else {
+            MOTEUR_GAUCHE_H_PWM_ENABLE = 0; //Pilotage de la pin en mode IO
+            MOTEUR_GAUCHE_H_IO_OUTPUT = 1; //Mise à 1 de la pin
+            MOTEUR_GAUCHE_L_PWM_ENABLE = 1; //Pilotage de la pin en mode PWM
+        }
+        robotState.vitesseGaucheCommandeCourante = Abs(vitesseEnPourcents);
+        MOTEUR_GAUCHE_DUTY_CYCLE = Abs(robotState.vitesseGaucheCommandeCourante * PWMPER);
+    }
+
+    if (DIRECTION == MOTEUR_DROIT) {
+        if (vitesseEnPourcents >= 0) {
+            MOTEUR_DROIT_L_PWM_ENABLE = 0; //Pilotage de la pin en mode IO
+            MOTEUR_DROIT_L_IO_OUTPUT = 1; //Mise à 1 de la pin
+            MOTEUR_DROIT_H_PWM_ENABLE = 1; //Pilotage de la pin en mode PWM
+        } else {
+            MOTEUR_DROIT_H_PWM_ENABLE = 0; //Pilotage de la pin en mode IO
+            MOTEUR_DROIT_H_IO_OUTPUT = 1; //Mise à 1 de la pin
+            MOTEUR_DROIT_L_PWM_ENABLE = 1; //Pilotage de la pin en mode PWM
+        }
+        robotState.vitesseDroiteCommandeCourante = Abs(vitesseEnPourcents);
+        MOTEUR_DROIT_DUTY_CYCLE = Abs(robotState.vitesseDroiteCommandeCourante * PWMPER);
+    }
+}
 
 void PWMUpdateSpeed() {
-    // Cette fonction est appelée sur timer et permet de suivre des rampes d?accélération
+//     Cette fonction est appelée sur timer et permet de suivre des rampes d?accélération
     if (robotState.vitesseDroiteCommandeCourante < robotState.vitesseDroiteConsigne)
         robotState.vitesseDroiteCommandeCourante = Min(
             robotState.vitesseDroiteCommandeCourante + acceleration,
@@ -99,6 +99,7 @@ void PWMUpdateSpeed() {
         MOTEUR_GAUCHE_L_PWM_ENABLE = 1; //Pilotage de la pin en mode PWM
     }
     MOTEUR_GAUCHE_DUTY_CYCLE = Abs(robotState.vitesseGaucheCommandeCourante) * PWMPER;
+    
 }
 
 void PWMSetSpeedConsigne(float vitesseEnPourcents, int DIRECTION)

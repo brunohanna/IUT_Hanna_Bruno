@@ -15,7 +15,8 @@
 #include "ADC.h"
 #include "robot.h"
 #include "main.h"
-#include "os.h"
+//#include "os.h"
+#include "os5C.h"
 
 int main(void) {
     /***************************************************************************************************/
@@ -41,10 +42,8 @@ int main(void) {
     InitTimer1();
 
     while (1) {
-            PWMSetSpeedConsigne(0, MOTEUR_DROIT);
-            PWMSetSpeedConsigne(0, MOTEUR_GAUCHE);
-//        SetNextRobotStateInAutomaticMode();
-//        OperatingSystemLoop();
+        SetNextRobotStateInAutomaticMode5c();
+        OperatingSystemLoop5c();
         if (ADCIsConversionFinished()) {
             ADCClearConversionFinishedFlag();
             unsigned int * result = ADCGetResult();
