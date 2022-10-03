@@ -40,10 +40,19 @@ int main(void) {
     InitADC1();
     InitTimer23();
     InitTimer1();
+    
+    // debug pre valeur
+    
+    robotState.distanceTelemetreExGauche = 50;
+    robotState.distanceTelemetreGauche = 50;
+    robotState.distanceTelemetreCentre = 50;
+    robotState.distanceTelemetreDroit = 50;
+    robotState.distanceTelemetreExDroit = 50;
 
+    robotState.vitesseDroiteConsigne = 0;
+    robotState.vitesseGaucheConsigne = 0;
+    
     while (1) {
-        SetNextRobotStateInAutomaticMode5c();
-        OperatingSystemLoop5c();
         if (ADCIsConversionFinished()) {
             ADCClearConversionFinishedFlag();
             unsigned int * result = ADCGetResult();
@@ -57,22 +66,8 @@ int main(void) {
             robotState.distanceTelemetreCentre = 34 / volts[2] - 5;
             robotState.distanceTelemetreDroit = 34 / volts[3] - 5;
             robotState.distanceTelemetreExDroit = 34 / volts[4] - 5;
-            if (robotState.distanceTelemetreDroit < 30) {
-                LED_ORANGE = 1;
-            } else {
-                LED_ORANGE = 0;
-            }
-            if (robotState.distanceTelemetreCentre < 30) {
-                LED_BLEUE = 1;
-            } else {
-                LED_BLEUE = 0;
-            }
-            if (robotState.distanceTelemetreGauche < 30) {
-                LED_BLANCHE = 1;
-            } else {
-                LED_BLANCHE = 0;
-            }
         }
+        OperatingSystemLoop5c();
     }
 
 
