@@ -8,6 +8,7 @@
 #include "os5C.h"
 
 unsigned char stateRobot;
+unsigned int lastTimestamp = 0;
 
 void OperatingSystemLoop5c(void) {
     switch (stateRobot) {
@@ -69,10 +70,12 @@ void OperatingSystemLoop5c(void) {
         case STATE_TOURNE_SUR_PLACE:
             PWMSetSpeedConsigne(15, MOTEUR_DROIT);
             PWMSetSpeedConsigne(15, MOTEUR_GAUCHE);
+            lastTimestamp = timestamp;
             stateRobot = STATE_TOURNE_SUR_PLACE_EN_COURS;
             break;
         case STATE_TOURNE_SUR_PLACE_EN_COURS:
-            SetNextRobotStateInAutomaticMode5c();
+            if ((timestamp - lastTimestamp) > 300)
+                stateRobot = STATE_AVANCE;
             break;
 
         default:

@@ -40,6 +40,7 @@ int main(void) {
     InitADC1();
     InitTimer23();
     InitTimer1();
+    InitTimer4();
     
     // debug pre valeur
     
