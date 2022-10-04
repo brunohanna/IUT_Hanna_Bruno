@@ -9,6 +9,7 @@
 
 unsigned char stateRobot;
 unsigned int lastTimestamp = 0;
+float vitesse = 1;
 
 void OperatingSystemLoop5c(void) {
     switch (stateRobot) {
@@ -23,8 +24,8 @@ void OperatingSystemLoop5c(void) {
             break;
 
         case STATE_AVANCE:
-            PWMSetSpeedConsigne(-20, MOTEUR_DROIT);
-            PWMSetSpeedConsigne(20, MOTEUR_GAUCHE);
+            PWMSetSpeedConsigne(int(-20.0*vitesse), MOTEUR_DROIT);
+            PWMSetSpeedConsigne(int(20.0*vitesse), MOTEUR_GAUCHE);
             stateRobot = STATE_AVANCE_EN_COURS;
             break;
         case STATE_AVANCE_EN_COURS:
@@ -32,8 +33,8 @@ void OperatingSystemLoop5c(void) {
             break;
 
         case STATE_TOURNE_GAUCHE:
-            PWMSetSpeedConsigne(-20, MOTEUR_DROIT);
-            PWMSetSpeedConsigne(0, MOTEUR_GAUCHE);
+            PWMSetSpeedConsigne(int(-20.0*vitesse), MOTEUR_DROIT);
+            PWMSetSpeedConsigne(int(-8.0*vitesse), MOTEUR_GAUCHE);
             stateRobot = STATE_TOURNE_GAUCHE_EN_COURS;
             break;
         case STATE_TOURNE_GAUCHE_EN_COURS:
@@ -41,8 +42,8 @@ void OperatingSystemLoop5c(void) {
             break;
 
         case STATE_TOURNE_DROITE:
-            PWMSetSpeedConsigne(0, MOTEUR_DROIT);
-            PWMSetSpeedConsigne(20, MOTEUR_GAUCHE);
+            PWMSetSpeedConsigne(int(8.0*vitesse), MOTEUR_DROIT);
+            PWMSetSpeedConsigne(int(20.0*vitesse), MOTEUR_GAUCHE);
             stateRobot = STATE_TOURNE_DROITE_EN_COURS;
             break;
         case STATE_TOURNE_DROITE_EN_COURS:
@@ -50,8 +51,8 @@ void OperatingSystemLoop5c(void) {
             break;
 
         case STATE_TOURNE_SUR_PLACE_GAUCHE:
-            PWMSetSpeedConsigne(-15, MOTEUR_DROIT);
-            PWMSetSpeedConsigne(-15, MOTEUR_GAUCHE);
+            PWMSetSpeedConsigne(int(-15.0*vitesse), MOTEUR_DROIT);
+            PWMSetSpeedConsigne(int(-15.0*vitesse), MOTEUR_GAUCHE);
             stateRobot = STATE_TOURNE_SUR_PLACE_GAUCHE_EN_COURS;
             break;
         case STATE_TOURNE_SUR_PLACE_GAUCHE_EN_COURS:
@@ -59,8 +60,8 @@ void OperatingSystemLoop5c(void) {
             break;
 
         case STATE_TOURNE_SUR_PLACE_DROITE:
-            PWMSetSpeedConsigne(15, MOTEUR_DROIT);
-            PWMSetSpeedConsigne(15, MOTEUR_GAUCHE);
+            PWMSetSpeedConsigne(int(15.0*vitesse), MOTEUR_DROIT);
+            PWMSetSpeedConsigne(int(15.0*vitesse), MOTEUR_GAUCHE);
             stateRobot = STATE_TOURNE_SUR_PLACE_DROITE_EN_COURS;
             break;
         case STATE_TOURNE_SUR_PLACE_DROITE_EN_COURS:
@@ -68,14 +69,32 @@ void OperatingSystemLoop5c(void) {
             break;
 
         case STATE_TOURNE_SUR_PLACE:
-            PWMSetSpeedConsigne(15, MOTEUR_DROIT);
-            PWMSetSpeedConsigne(15, MOTEUR_GAUCHE);
+            PWMSetSpeedConsigne(int(15.0*vitesse), MOTEUR_DROIT);
+            PWMSetSpeedConsigne(int(15.0*vitesse), MOTEUR_GAUCHE);
             lastTimestamp = timestamp;
             stateRobot = STATE_TOURNE_SUR_PLACE_EN_COURS;
             break;
         case STATE_TOURNE_SUR_PLACE_EN_COURS:
             if ((timestamp - lastTimestamp) > 300)
                 stateRobot = STATE_AVANCE;
+            break;
+            
+        case STATE_LEGET_TOURNE_DROITE:
+            PWMSetSpeedConsigne(int(-10.0*vitesse), MOTEUR_DROIT);
+            PWMSetSpeedConsigne(int(25.0*vitesse), MOTEUR_GAUCHE);
+            stateRobot = STATE_LEGET_TOURNE_DROITE_EN_COURS;
+            break;
+        case STATE_LEGET_TOURNE_DROITE_EN_COURS:
+            SetNextRobotStateInAutomaticMode5c();
+            break;
+            
+        case STATE_LEGET_TOURNE_GAUCHE:
+            PWMSetSpeedConsigne(int(25.0*vitesse), MOTEUR_DROIT);
+            PWMSetSpeedConsigne(int(-10.0*vitesse), MOTEUR_GAUCHE);
+            stateRobot = STATE_LEGET_TOURNE_DROITE_EN_COURS;
+            break;
+        case STATE_LEGET_TOURNE_GAUCHE_EN_COURS:
+            SetNextRobotStateInAutomaticMode5c();
             break;
 
         default:
@@ -89,7 +108,6 @@ unsigned char positionObstacle = 0;
 
 void SetNextRobotStateInAutomaticMode5c() {
     
-    positionObstacle = 0;
     //Détermination de la position des obstacles en fonction des télémètres
     if (robotState.distanceTelemetreExGauche < 15) //Obstacle à l'extreme droite
         positionObstacle = positionObstacle + 16;
@@ -102,13 +120,27 @@ void SetNextRobotStateInAutomaticMode5c() {
     if (robotState.distanceTelemetreExDroit < 15) //Obstacle à l'extreme gauche
         positionObstacle = positionObstacle + 1;
     
+    if ((robotState.distanceTelemetreGauche >= 30) 
+            && (robotState.distanceTelemetreCentre >= 30) 
+            && (robotState.distanceTelemetreDroit >= 30) 
+            && (robotState.distanceTelemetreExGauche >= 15) 
+            && (robotState.distanceTelemetreExDroit >= 15))
+        vitesse = 1.4;
+    else {vitesse = 1.0;}
+    
+    if ((robotState.distanceTelemetreGauche =< 8) 
+            || (robotState.distanceTelemetreCentre =< 8) 
+            || (robotState.distanceTelemetreDroit =< 8)
+            || (robotState.distanceTelemetreExGauche =< 5)
+            || (robotState.distanceTelemetreExDroit =< 5))
+        vitesse = 0.7;
     //Détermination de l?état à venir du robot
     switch (positionObstacle) {
         case 0b00000:   
             nextStateRobot = STATE_AVANCE;
             break;
         case 0b00001:
-            nextStateRobot = STATE_TOURNE_GAUCHE;
+            nextStateRobot = STATE_LEGET_TOURNE_GAUCHE;
             break;
         case 0b00010:
             nextStateRobot = STATE_TOURNE_GAUCHE;
@@ -132,37 +164,37 @@ void SetNextRobotStateInAutomaticMode5c() {
             nextStateRobot = STATE_TOURNE_DROITE;
             break;
         case 0b01001:
-            nextStateRobot = STATE_TOURNE_DROITE;
+            nextStateRobot = STATE_TOURNE_SUR_PLACE_DROITE;
             break;
         case 0b01010:
             nextStateRobot = STATE_TOURNE_SUR_PLACE;
             break;
         case 0b01011:
-            nextStateRobot = STATE_TOURNE_GAUCHE;
+            nextStateRobot = STATE_TOURNE_SUR_PLACE;
             break;
         case 0b01100:
             nextStateRobot = STATE_TOURNE_SUR_PLACE_DROITE;
             break;
         case 0b01101:
-            nextStateRobot = STATE_TOURNE_SUR_PLACE_DROITE;
+            nextStateRobot = STATE_TOURNE_SUR_PLACE;
             break;
         case 0b01110:
-            nextStateRobot = STATE_TOURNE_SUR_PLACE_GAUCHE;
+            nextStateRobot = STATE_TOURNE_SUR_PLACE;
             break;
         case 0b01111:
             nextStateRobot = STATE_TOURNE_SUR_PLACE_GAUCHE;
             break;
         case 0b10000:
-            nextStateRobot = STATE_TOURNE_DROITE;
+            nextStateRobot = STATE_LEGET_TOURNE_DROITE;
             break;
         case 0b10001:
-            nextStateRobot = STATE_TOURNE_SUR_PLACE_GAUCHE;
+            nextStateRobot = STATE_TOURNE_SUR_PLACE;
             break;
         case 0b10010:
-            nextStateRobot = STATE_TOURNE_GAUCHE;
+            nextStateRobot = STATE_TOURNE_SUR_PLACE_GAUCHE;
             break;
         case 0b10011:
-            nextStateRobot = STATE_TOURNE_GAUCHE;
+            nextStateRobot = STATE_TOURNE_SUR_PLACE_GAUCHE;
             break;
         case 0b10100:
             nextStateRobot = STATE_TOURNE_SUR_PLACE_DROITE;
@@ -174,7 +206,7 @@ void SetNextRobotStateInAutomaticMode5c() {
             nextStateRobot = STATE_TOURNE_SUR_PLACE_GAUCHE;
             break;
         case 0b10111:
-            nextStateRobot = STATE_TOURNE_SUR_PLACE_GAUCHE;
+            nextStateRobot = STATE_TOURNE_SUR_PLACE;
             break;
         case 0b11000:
             nextStateRobot = STATE_TOURNE_DROITE;
@@ -192,7 +224,7 @@ void SetNextRobotStateInAutomaticMode5c() {
             nextStateRobot = STATE_TOURNE_SUR_PLACE_DROITE;
             break;
         case 0b11101:
-            nextStateRobot = STATE_TOURNE_SUR_PLACE_DROITE;
+            nextStateRobot = STATE_TOURNE_SUR_PLACE;
             break;
         case 0b11110:
             nextStateRobot = STATE_TOURNE_SUR_PLACE_DROITE;
