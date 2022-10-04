@@ -3,14 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Bruno/Desktop/Github/IUT_Hanna_Bruno/Embedded/Projet-Robot_Hanna_Capolino.X/main.h</file>
-            <file>file:/C:/Users/Bruno/Desktop/Github/IUT_Hanna_Bruno/Embedded/Projet-Robot_Hanna_Capolino.X/timer.c</file>
-            <file>file:/C:/Users/Bruno/Desktop/Github/IUT_Hanna_Bruno/Embedded/Projet-Robot_Hanna_Capolino.X/os.h</file>
-            <file>file:/C:/Users/Bruno/Desktop/Github/IUT_Hanna_Bruno/Embedded/Projet-Robot_Hanna_Capolino.X/os5C.h</file>
-            <file>file:/C:/Users/Bruno/Desktop/Github/IUT_Hanna_Bruno/Embedded/Projet-Robot_Hanna_Capolino.X/main.c</file>
-            <file>file:/C:/Users/Bruno/Desktop/Github/IUT_Hanna_Bruno/Embedded/Projet-Robot_Hanna_Capolino.X/PWM.c</file>
-            <file>file:/C:/Users/Bruno/Desktop/Github/IUT_Hanna_Bruno/Embedded/Projet-Robot_Hanna_Capolino.X/os.c</file>
-            <file>file:/C:/Users/Bruno/Desktop/Github/IUT_Hanna_Bruno/Embedded/Projet-Robot_Hanna_Capolino.X/os5C.c</file>
+            <file>file:/C:/Users/Table%2012/Documents/GitHub/IUT_Hanna_Bruno/Embedded/Projet-Robot_Hanna_Capolino.X/os5C.c</file>
+            <file>file:/C:/Users/Table%2012/Documents/GitHub/IUT_Hanna_Bruno/Embedded/Projet-Robot_Hanna_Capolino.X/main.c</file>
         </group>
     </open-files>
 </project-private>
