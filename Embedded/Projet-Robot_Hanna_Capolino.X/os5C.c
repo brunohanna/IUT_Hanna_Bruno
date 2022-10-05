@@ -8,6 +8,7 @@
 #include "os5C.h"
 
 unsigned char stateRobot;
+int lastTimestamp;
 
 void OperatingSystemLoop5c(void) {
     switch (stateRobot) {
@@ -32,7 +33,7 @@ void OperatingSystemLoop5c(void) {
 
         case STATE_TOURNE_GAUCHE:
             PWMSetSpeedConsigne(-20, MOTEUR_DROIT);
-            PWMSetSpeedConsigne(8, MOTEUR_GAUCHE);
+            PWMSetSpeedConsigne(-8, MOTEUR_GAUCHE);
             stateRobot = STATE_TOURNE_GAUCHE_EN_COURS;
             break;
         case STATE_TOURNE_GAUCHE_EN_COURS:
@@ -40,7 +41,7 @@ void OperatingSystemLoop5c(void) {
             break;
 
         case STATE_TOURNE_DROITE:
-            PWMSetSpeedConsigne(-8, MOTEUR_DROIT);
+            PWMSetSpeedConsigne(8, MOTEUR_DROIT);
             PWMSetSpeedConsigne(20, MOTEUR_GAUCHE);
             stateRobot = STATE_TOURNE_DROITE_EN_COURS;
             break;
@@ -67,11 +68,31 @@ void OperatingSystemLoop5c(void) {
             break;
 
         case STATE_TOURNE_SUR_PLACE:
-            PWMSetSpeedConsigne(15, MOTEUR_DROIT);
-            PWMSetSpeedConsigne(15, MOTEUR_GAUCHE);
+            PWMSetSpeedConsigne(15.0, MOTEUR_DROIT);
+            PWMSetSpeedConsigne(15.0, MOTEUR_GAUCHE);
+            lastTimestamp = timestamp;
             stateRobot = STATE_TOURNE_SUR_PLACE_EN_COURS;
             break;
         case STATE_TOURNE_SUR_PLACE_EN_COURS:
+            if ((timestamp - lastTimestamp) > 300)
+                stateRobot = STATE_AVANCE;
+            break;
+            
+        case STATE_LEGET_TOURNE_DROITE:
+            PWMSetSpeedConsigne(-10.0, MOTEUR_DROIT);
+            PWMSetSpeedConsigne(25.0, MOTEUR_GAUCHE);
+            stateRobot = STATE_LEGET_TOURNE_DROITE_EN_COURS;
+            break;
+        case STATE_LEGET_TOURNE_DROITE_EN_COURS:
+            SetNextRobotStateInAutomaticMode5c();
+            break;
+            
+        case STATE_LEGET_TOURNE_GAUCHE:
+            PWMSetSpeedConsigne(25.0, MOTEUR_DROIT);
+            PWMSetSpeedConsigne(-10.0, MOTEUR_GAUCHE);
+            stateRobot = STATE_LEGET_TOURNE_DROITE_EN_COURS;
+            break;
+        case STATE_LEGET_TOURNE_GAUCHE_EN_COURS:
             SetNextRobotStateInAutomaticMode5c();
             break;
 
