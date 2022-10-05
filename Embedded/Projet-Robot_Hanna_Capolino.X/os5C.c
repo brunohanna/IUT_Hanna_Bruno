@@ -22,8 +22,8 @@ void OperatingSystemLoop5c(void) {
             break;
 
         case STATE_AVANCE:
-            PWMSetSpeedConsigne(-20, MOTEUR_DROIT);
-            PWMSetSpeedConsigne(20, MOTEUR_GAUCHE);
+            PWMSetSpeedConsigne(-17, MOTEUR_DROIT);
+            PWMSetSpeedConsigne(17, MOTEUR_GAUCHE);
             stateRobot = STATE_AVANCE_EN_COURS;
             break;
         case STATE_AVANCE_EN_COURS:
@@ -76,8 +76,8 @@ void OperatingSystemLoop5c(void) {
             break;
             
         case STATE_LEGET_TOURNE_DROITE:
-            PWMSetSpeedConsigne(-10, MOTEUR_DROIT);
-            PWMSetSpeedConsigne(20, MOTEUR_GAUCHE);
+            PWMSetSpeedConsigne(0, MOTEUR_DROIT);
+            PWMSetSpeedConsigne(15, MOTEUR_GAUCHE);
             stateRobot = STATE_LEGET_TOURNE_DROITE_EN_COURS;
             break;
         case STATE_LEGET_TOURNE_DROITE_EN_COURS:
@@ -85,8 +85,8 @@ void OperatingSystemLoop5c(void) {
             break;
             
         case STATE_LEGET_TOURNE_GAUCHE:
-            PWMSetSpeedConsigne(-20.0, MOTEUR_DROIT);
-            PWMSetSpeedConsigne(10.0, MOTEUR_GAUCHE);
+            PWMSetSpeedConsigne(-15.0, MOTEUR_DROIT);
+            PWMSetSpeedConsigne(0.0, MOTEUR_GAUCHE);
             stateRobot = STATE_LEGET_TOURNE_DROITE_EN_COURS;
             break;
         case STATE_LEGET_TOURNE_GAUCHE_EN_COURS:
@@ -108,11 +108,11 @@ void SetNextRobotStateInAutomaticMode5c() {
     //Détermination de la position des obstacles en fonction des télémètres
     if (robotState.distanceTelemetreExGauche < 15) //Obstacle à l'extreme droite
         positionObstacle = positionObstacle + 16;
-    if (robotState.distanceTelemetreGauche < 21) //Obstacle à droite
+    if (robotState.distanceTelemetreGauche < 18) //Obstacle à droite
         positionObstacle = positionObstacle + 8;
-    if (robotState.distanceTelemetreCentre < 25) //Obstacle au centre
+    if (robotState.distanceTelemetreCentre < 21) //Obstacle au centre
         positionObstacle = positionObstacle + 4;
-    if (robotState.distanceTelemetreDroit < 21) //Obstacle à gauche
+    if (robotState.distanceTelemetreDroit < 18) //Obstacle à gauche
         positionObstacle = positionObstacle + 2;
     if (robotState.distanceTelemetreExDroit < 15) //Obstacle à l'extreme gauche
         positionObstacle = positionObstacle + 1;
