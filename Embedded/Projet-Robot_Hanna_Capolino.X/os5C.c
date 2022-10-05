@@ -74,6 +74,24 @@ void OperatingSystemLoop5c(void) {
         case STATE_TOURNE_SUR_PLACE_EN_COURS:
             SetNextRobotStateInAutomaticMode5c();
             break;
+            
+        case STATE_LEGET_TOURNE_DROITE:
+            PWMSetSpeedConsigne(-10.0, MOTEUR_DROIT);
+            PWMSetSpeedConsigne(25.0, MOTEUR_GAUCHE);
+            stateRobot = STATE_LEGET_TOURNE_DROITE_EN_COURS;
+            break;
+        case STATE_LEGET_TOURNE_DROITE_EN_COURS:
+            SetNextRobotStateInAutomaticMode5c();
+            break;
+            
+        case STATE_LEGET_TOURNE_GAUCHE:
+            PWMSetSpeedConsigne(25.0, MOTEUR_DROIT);
+            PWMSetSpeedConsigne(-10.0, MOTEUR_GAUCHE);
+            stateRobot = STATE_LEGET_TOURNE_DROITE_EN_COURS;
+            break;
+        case STATE_LEGET_TOURNE_GAUCHE_EN_COURS:
+            SetNextRobotStateInAutomaticMode5c();
+            break;
 
         default:
             stateRobot = STATE_ATTENTE;
