@@ -134,7 +134,7 @@ void SetNextRobotStateInAutomaticMode5c() {
             || (robotState.distanceTelemetreExGauche <= 5)
             || (robotState.distanceTelemetreExDroit <= 5)){
         nextStateRobot = STATE_TOURNE_SUR_PLACE;
-        break;
+        return;
     }
     //Détermination de l?état à venir du robot
     switch (positionObstacle) {
