@@ -1,0 +1,27 @@
+﻿<Window x:Class="RobotInterface.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RobotInterface"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <GroupBox x:Name="Emission" Header="GroupBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="0" Margin="5">
+            <TextBox x:Name="TextBoxEmission" TextWrapping="Wrap" TextChanged="TextBoxEmission_TextChanged" AcceptsReturn="True" KeyUp="TextBoxEmission_KeyUp"/>
+        </GroupBox>
+        <GroupBox x:Name="Reception" Header="GroupBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" Margin="5">
+            <TextBox x:Name="TextBoxReception" HorizontalAlignment="Stretch" Text="" TextWrapping="Wrap" TextChanged="TextBoxReception_TextChanged" IsReadOnly="True"/>
+        </GroupBox>
+        <Button x:Name="buttonEnvoyer" Content="Envoyer" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Width="100" Height="30" Click="Button_Envoyer_Click1"/>
+
+    </Grid>
+</Window>
