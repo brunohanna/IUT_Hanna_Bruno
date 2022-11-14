@@ -54,21 +54,23 @@ int main(void) {
     robotState.vitesseGaucheConsigne = 0;
     
     while (1) {
-        if (ADCIsConversionFinished()) {
-            ADCClearConversionFinishedFlag();
-            unsigned int * result = ADCGetResult();
-            float volts [5];
-            int i;
-            for (i = 0; i < 5; i++) {
-                volts[i] = ((float) result [i])* 3.3 / 4096 * 3.2;
-            }
-            robotState.distanceTelemetreExGauche = 34 / volts[0] - 5;
-            robotState.distanceTelemetreGauche = 34 / volts[1] - 5;
-            robotState.distanceTelemetreCentre = 34 / volts[2] - 5;
-            robotState.distanceTelemetreDroit = 34 / volts[3] - 5;
-            robotState.distanceTelemetreExDroit = 34 / volts[4] - 5;
-        }
-        OperatingSystemLoop5c();
+//        if (ADCIsConversionFinished()) {
+//            ADCClearConversionFinishedFlag();
+//            unsigned int * result = ADCGetResult();
+//            float volts [5];
+//            int i;
+//            for (i = 0; i < 5; i++) {
+//                volts[i] = ((float) result [i])* 3.3 / 4096 * 3.2;
+//            }
+//            robotState.distanceTelemetreExGauche = 34 / volts[0] - 5;
+//            robotState.distanceTelemetreGauche = 34 / volts[1] - 5;
+//            robotState.distanceTelemetreCentre = 34 / volts[2] - 5;
+//            robotState.distanceTelemetreDroit = 34 / volts[3] - 5;
+//            robotState.distanceTelemetreExDroit = 34 / volts[4] - 5;
+//        }
+//        OperatingSystemLoop5c();
+            PWMSetSpeedConsigne(0, MOTEUR_DROIT);
+            PWMSetSpeedConsigne(0, MOTEUR_GAUCHE);
     }
 
 

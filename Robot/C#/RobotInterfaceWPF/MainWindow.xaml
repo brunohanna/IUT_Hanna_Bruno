@@ -16,12 +16,13 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <GroupBox x:Name="Emission" Header="GroupBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="0" Margin="5">
-            <TextBox x:Name="TextBoxEmission" TextWrapping="Wrap" TextChanged="TextBoxEmission_TextChanged" AcceptsReturn="True" KeyUp="TextBoxEmission_KeyUp"/>
+            <TextBox x:Name="TextBoxEmission" TextWrapping="Wrap" AcceptsReturn="True" KeyUp="TextBoxEmission_KeyUp"/>
         </GroupBox>
         <GroupBox x:Name="Reception" Header="GroupBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" Margin="5">
-            <TextBox x:Name="TextBoxReception" HorizontalAlignment="Stretch" Text="" TextWrapping="Wrap" TextChanged="TextBoxReception_TextChanged" IsReadOnly="True"/>
+            <TextBox x:Name="TextBoxReception" HorizontalAlignment="Stretch" Text="" TextWrapping="Wrap" IsReadOnly="True"/>
         </GroupBox>
         <Button x:Name="buttonEnvoyer" Content="Envoyer" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Width="100" Height="30" Click="Button_Envoyer_Click1"/>
+        <Button x:Name="buttonClear" Content="Clear" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Width="100" Height="30" Click="buttonClear_Click" Margin="150,5,146,5"/>
 
     </Grid>
 </Window>
