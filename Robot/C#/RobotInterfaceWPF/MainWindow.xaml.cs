@@ -29,7 +29,7 @@ namespace RobotInterfaceWPF
         {
             InitializeComponent();
 
-            serialPort1 = new ReliableSerialPort("COM9", 115200, Parity.None, 8, StopBits.One);
+            serialPort1 = new ReliableSerialPort("COM4", 115200, Parity.None, 8, StopBits.One);
             serialPort1.DataReceived += SerialPort1_DataReceived;
             serialPort1.Open();
 
@@ -44,21 +44,29 @@ namespace RobotInterfaceWPF
         private void timerAffichage_Tick(object sender, EventArgs e)
         {
             // throw new NotImplementedException();
-            if (robot.receivedText != "")
+            /*if (robot.receivedText != "")
             {
-                TextBoxReception.Text += robot.receivedText;
+                TextBoxReception.Text += robot.receivedText.ToString() + "\n" + "Le nombre d'element dans la liste : " + robot.byteListReceived.Count + "\n";
                 robot.receivedText = "";
+            }*/
+            while (robot.byteListReceived.Count>0)
+            {
+                var c = robot.byteListReceived.Dequeue();
+                TextBoxReception.Text += "0x" + c.ToString("X2") + " ";
             }
-
+            
         }
 
-        string receivedText = "";
         private DispatcherTimer timerAffichage;
 
         public void SerialPort1_DataReceived(object sender, DataReceivedArgs e)
         {
             //throw new NotImplementedException();
-            receivedText += Encoding.UTF8.GetString(e.Data, 0, e.Data.Length);
+            //robot.receivedText += Encoding.UTF8.GetString(e.Data, 0, e.Data.Length);
+            foreach (var lastw in e.Data)
+            {
+                robot.byteListReceived.Enqueue(lastw);
+            }
         }
 
         private void Button_Envoyer_Click1(object sender, RoutedEventArgs e)
@@ -96,12 +104,12 @@ namespace RobotInterfaceWPF
 
         private void buttonTest_Click(object sender, RoutedEventArgs e)
         {
-            byte[] bytelist = new byte[20];
-            for (int i = 0; i<20; i++)
+            byte[] bytelist = new byte[40];
+            for (int i = 0; i<40; i++)
             {
                 bytelist[i] = (byte)(2 * i);
             }
-            serialPort1.Write(bytelist, 0, 20);
+            serialPort1.Write(bytelist, 33, 7);
         }
     }
 }
