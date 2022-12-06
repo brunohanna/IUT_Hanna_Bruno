@@ -24,12 +24,12 @@ namespace RobotInterfaceWPF
     public partial class MainWindow : Window
     {
         ReliableSerialPort serialPort1;
-
+        Robot robot = new Robot();
         public MainWindow()
         {
             InitializeComponent();
 
-            serialPort1 = new ReliableSerialPort("COM4", 115200, Parity.None, 8, StopBits.One);
+            serialPort1 = new ReliableSerialPort("COM9", 115200, Parity.None, 8, StopBits.One);
             serialPort1.DataReceived += SerialPort1_DataReceived;
             serialPort1.Open();
 
@@ -44,10 +44,10 @@ namespace RobotInterfaceWPF
         private void timerAffichage_Tick(object sender, EventArgs e)
         {
             // throw new NotImplementedException();
-            if (receivedText != "")
+            if (robot.receivedText != "")
             {
-                TextBoxReception.Text += receivedText;
-                receivedText = "";
+                TextBoxReception.Text += robot.receivedText;
+                robot.receivedText = "";
             }
 
         }
@@ -92,6 +92,16 @@ namespace RobotInterfaceWPF
         private void buttonClear_Click(object sender, RoutedEventArgs e)
         {
             TextBoxReception.Text = "";
+        }
+
+        private void buttonTest_Click(object sender, RoutedEventArgs e)
+        {
+            byte[] bytelist = new byte[20];
+            for (int i = 0; i<20; i++)
+            {
+                bytelist[i] = (byte)(2 * i);
+            }
+            serialPort1.Write(bytelist, 0, 20);
         }
     }
 }
