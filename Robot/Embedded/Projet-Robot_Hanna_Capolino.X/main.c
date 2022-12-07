@@ -17,6 +17,7 @@
 #include "main.h"
 //#include "os.h"
 #include "os5C.h"
+#include "UART.h"
 
 int main(void) {
     /***************************************************************************************************/
@@ -41,9 +42,12 @@ int main(void) {
     InitTimer23();
     InitTimer1();
     InitTimer4();
-    
+
+    //Initialisation UART
+    InitUART();
+
     // debug pre valeur
-    
+
     robotState.distanceTelemetreExGauche = 50;
     robotState.distanceTelemetreGauche = 50;
     robotState.distanceTelemetreCentre = 50;
@@ -52,25 +56,27 @@ int main(void) {
 
     robotState.vitesseDroiteConsigne = 0;
     robotState.vitesseGaucheConsigne = 0;
-    
+    //SendMessageDirect((unsigned char*) "ratio", 5);
+    //__delay32(40000000);
     while (1) {
-//        if (ADCIsConversionFinished()) {
-//            ADCClearConversionFinishedFlag();
-//            unsigned int * result = ADCGetResult();
-//            float volts [5];
-//            int i;
-//            for (i = 0; i < 5; i++) {
-//                volts[i] = ((float) result [i])* 3.3 / 4096 * 3.2;
-//            }
-//            robotState.distanceTelemetreExGauche = 34 / volts[0] - 5;
-//            robotState.distanceTelemetreGauche = 34 / volts[1] - 5;
-//            robotState.distanceTelemetreCentre = 34 / volts[2] - 5;
-//            robotState.distanceTelemetreDroit = 34 / volts[3] - 5;
-//            robotState.distanceTelemetreExDroit = 34 / volts[4] - 5;
-//        }
-//        OperatingSystemLoop5c();
-            PWMSetSpeedConsigne(0, MOTEUR_DROIT);
-            PWMSetSpeedConsigne(0, MOTEUR_GAUCHE);
+        if (ADCIsConversionFinished()) {
+            ADCClearConversionFinishedFlag();
+            unsigned int * result = ADCGetResult();
+            float volts [5];
+            int i;
+            for (i = 0; i < 5; i++) {
+                volts[i] = ((float) result [i])* 3.3 / 4096 * 3.2;
+            }
+            robotState.distanceTelemetreExGauche = 34 / volts[0] - 5;
+            robotState.distanceTelemetreGauche = 34 / volts[1] - 5;
+            robotState.distanceTelemetreCentre = 34 / volts[2] - 5;
+            robotState.distanceTelemetreDroit = 34 / volts[3] - 5;
+            robotState.distanceTelemetreExDroit = 34 / volts[4] - 5;
+
+            
+        }
+        OperatingSystemLoop5C();
+        
     }
 
 

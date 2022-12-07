@@ -46,7 +46,7 @@ namespace RobotInterfaceWPF
             // throw new NotImplementedException();
             /*if (robot.receivedText != "")
             {
-                TextBoxReception.Text += robot.receivedText.ToString() + "\n" + "Le nombre d'element dans la liste : " + robot.byteListReceived.Count + "\n";
+                TextBoxReception.Text += robot.receivedText;
                 robot.receivedText = "";
             }*/
             while (robot.byteListReceived.Count>0)
@@ -68,7 +68,7 @@ namespace RobotInterfaceWPF
                 robot.byteListReceived.Enqueue(lastw);
             }
         }
-
+        
         private void Button_Envoyer_Click1(object sender, RoutedEventArgs e)
         {
             if (buttonEnvoyer.Background == Brushes.Beige)
@@ -109,7 +109,7 @@ namespace RobotInterfaceWPF
             {
                 bytelist[i] = (byte)(2 * i);
             }
-            serialPort1.Write(bytelist, 33, 7);
+            serialPort1.Write(bytelist, 0, 40);
         }
     }
 }
