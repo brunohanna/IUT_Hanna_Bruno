@@ -12,9 +12,10 @@
       <itemPath>Toolbox.h</itemPath>
       <itemPath>ADC.h</itemPath>
       <itemPath>main.h</itemPath>
-      <itemPath>os.h</itemPath>
       <itemPath>os5C.h</itemPath>
       <itemPath>UART.h</itemPath>
+      <itemPath>CB_TX1.h</itemPath>
+      <itemPath>os.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -34,6 +35,7 @@
       <itemPath>os.c</itemPath>
       <itemPath>os5C.c</itemPath>
       <itemPath>UART.c</itemPath>
+      <itemPath>CB_TX1.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -1370,18 +1372,6 @@
         </C30Global>
       </item>
       <item path="os.h" ex="true" overriding="false">
-        <C30>
-        </C30>
-        <C30-AR>
-        </C30-AR>
-        <C30-AS>
-        </C30-AS>
-        <C30-CO>
-        </C30-CO>
-        <C30-LD>
-        </C30-LD>
-        <C30Global>
-        </C30Global>
       </item>
     </conf>
   </confs>

@@ -18,6 +18,7 @@
 //#include "os.h"
 #include "os5C.h"
 #include "UART.h"
+#include "CB_TX1.h"
 
 int main(void) {
     /***************************************************************************************************/
@@ -60,6 +61,7 @@ int main(void) {
     //__delay32(40000000);
     while (1) {
         if (ADCIsConversionFinished()) {
+            SendMessage("Bonjour",7);
             ADCClearConversionFinishedFlag();
             unsigned int * result = ADCGetResult();
             float volts [5];
@@ -72,11 +74,8 @@ int main(void) {
             robotState.distanceTelemetreCentre = 34 / volts[2] - 5;
             robotState.distanceTelemetreDroit = 34 / volts[3] - 5;
             robotState.distanceTelemetreExDroit = 34 / volts[4] - 5;
-
-            
         }
         OperatingSystemLoop5C();
-        
     }
 
 
