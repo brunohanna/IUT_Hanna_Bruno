@@ -52,7 +52,7 @@ void __attribute__((interrupt, no_auto_psv)) _T3Interrupt(void) {
 void InitTimer1(void) {
     //Timer1 pour horodater les mesures (1ms)
     T1CONbits.TON = 0; // Disable Timer
-    SetFreqTimer1(5000); //Set Frequency and prescale
+    SetFreqTimer1(50); //Set Frequency and prescale
     //11 = 1:256 prescale value
     //10 = 1:64 prescale value
     //01 = 1:8 prescale value

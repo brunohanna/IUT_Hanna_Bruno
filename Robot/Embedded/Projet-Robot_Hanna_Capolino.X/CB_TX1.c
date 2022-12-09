@@ -55,15 +55,15 @@ unsigned char CB_TX1_IsTranmitting(void) {
 
 int CB_TX1_GetDataSize(void) {
     int DSize;
-    /*if (cbTx1Head >= cbTx1Tail) {
+    if (cbTx1Head >= cbTx1Tail) {
         DSize = cbTx1Head - cbTx1Tail;
     } else
-        DSize = CBTX1_BUFFER_SIZE + cbTx1Head - cbTx1Tail;*/
+        DSize = CBTX1_BUFFER_SIZE + cbTx1Head - cbTx1Tail;
     return DSize;
 }
 
 int CB_TX1_RemainingSize(void) {
     int rSize;
-    //rSize = CBTX1_BUFFER_SIZE - CB_TX1_GetDataSize();
+    rSize = CBTX1_BUFFER_SIZE - CB_TX1_GetDataSize();
     return rSize;
 }
