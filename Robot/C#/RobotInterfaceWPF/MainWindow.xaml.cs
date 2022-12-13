@@ -106,17 +106,22 @@ namespace RobotInterfaceWPF
 
         private void buttonTest_Click(object sender, RoutedEventArgs e)
         {
+            // Test d'envoi d'un message
             /*byte[] bytelist = new byte[40];
             for (int i = 0; i < 40; i++)
             {
                 bytelist[i] = (byte)(2 * i);
             }
             serialPort1.Write(bytelist, 0, 40);*/
-            int msgFunction = (int)0x0080;
+
+            //Test de décodage
+            /*int msgFunction = (int)0x0080;
             string payload = "Bonjour";
             int payloadLength = payload.Length;
             byte[] payloadBytes = Encoding.ASCII.GetBytes(payload);
-            UartEncodeAndSendMessage(msgFunction, payloadLength, payloadBytes);
+            UartEncodeAndSendMessage(msgFunction, payloadLength, payloadBytes);*/
+
+
         }
 
         byte CalculateChecksum(int msgFunction, int msgPayloadLength, byte[] msgPayload)
