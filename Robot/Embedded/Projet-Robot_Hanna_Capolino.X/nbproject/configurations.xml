@@ -221,10 +221,6 @@
         <property key="relaxed-math" value="false"/>
         <property key="save-temps" value="false"/>
       </C30Global>
-      <item path="CB_RX1.c" ex="true" overriding="false">
-      </item>
-      <item path="CB_RX1.h" ex="true" overriding="false">
-      </item>
       <ICD4Tool>
         <property key="ADC 1" value="true"/>
         <property key="ADC 2" value="true"/>

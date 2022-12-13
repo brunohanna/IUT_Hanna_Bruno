@@ -49,12 +49,12 @@ namespace RobotInterfaceWPF
                 TextBoxReception.Text += robot.receivedText;
                 robot.receivedText = "";
             }*/
-            while (robot.byteListReceived.Count>0)
+            while (robot.byteListReceived.Count > 0)
             {
                 var c = robot.byteListReceived.Dequeue();
                 TextBoxReception.Text += "0x" + c.ToString("X2") + " ";
             }
-            
+
         }
 
         private DispatcherTimer timerAffichage;
@@ -68,7 +68,7 @@ namespace RobotInterfaceWPF
                 robot.byteListReceived.Enqueue(lastw);
             }
         }
-        
+
         private void Button_Envoyer_Click1(object sender, RoutedEventArgs e)
         {
             if (buttonEnvoyer.Background == Brushes.Beige)
@@ -105,11 +105,45 @@ namespace RobotInterfaceWPF
         private void buttonTest_Click(object sender, RoutedEventArgs e)
         {
             byte[] bytelist = new byte[40];
-            for (int i = 0; i<40; i++)
+            for (int i = 0; i < 40; i++)
             {
                 bytelist[i] = (byte)(2 * i);
             }
             serialPort1.Write(bytelist, 0, 40);
+        }
+
+        /*byte CalculateChecksum(int msgFunction, int msgPayloadLength, byte[] msgPayload)
+        {
+            byte checksum = 0;
+            checksum ^= 0xFE;
+            checksum ^= (byte)(msgFunction >> 8);
+            checksum ^= (byte)(msgFunction >> 0);
+            checksum ^= (byte)(msgPayloadLength >> 8);
+            checksum ^= (byte)(msgPayloadLength >> 0);
+
+            for (int i = 0; i < msgPayloadLength; i++)
+            {
+                checksum ^= msgPayload[i];
+            }
+            return checksum;
+        }
+
+        void UartEncodeAndSendMessage(int msgFunction, int msgPayloadLength, byte[] msgPayload)
+        {
+            byte[] message = new byte[msgPayloadLength + 6];
+            int pos = 0;
+            message[pos++] = 0xFE;
+            message[pos++] = (byte)(msgFunction >> 8);
+            message[pos++] = (byte)(msgFunction >> 0);
+            message[pos++] = (byte)(msgPayloadLength >> 8);
+            message[pos++] = (byte)(msgPayloadLength >> 8);
+            for (0; i < msgPayloadLength; i++)
+            {
+                message[pos++]= msgPayload[i];
+            }
+            message[pos++] = CalculateChecksum(msgFunction, msgPayloadLength, msgPayload);
+
+        */
         }
     }
 }

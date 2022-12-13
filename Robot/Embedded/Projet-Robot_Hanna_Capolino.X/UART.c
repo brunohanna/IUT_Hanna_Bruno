@@ -25,21 +25,21 @@ void InitUART(void) {
     U1STAbits.UTXEN = 1; // Enable UART Tx
 }
 
-void __attribute__((interrupt, no_auto_psv)) _U1RXInterrupt(void) {
-    IFS0bits.U1RXIF = 0; // clear RX interrupt flag
-    /* check for receive errors */
-    if (U1STAbits.FERR == 1) {
-        U1STAbits.FERR = 0;
-    }
-    /* must clear the overrun error to keep uart receiving */
-    if (U1STAbits.OERR == 1) {
-        U1STAbits.OERR = 0;
-    }
-    /* get the data */
-    while (U1STAbits.URXDA == 1) {
-        U1TXREG = U1RXREG;
-    }
-}
+//void __attribute__((interrupt, no_auto_psv)) _U1RXInterrupt(void) {
+//    IFS0bits.U1RXIF = 0; // clear RX interrupt flag
+//    /* check for receive errors */
+//    if (U1STAbits.FERR == 1) {
+//        U1STAbits.FERR = 0;
+//    }
+//    /* must clear the overrun error to keep uart receiving */
+//    if (U1STAbits.OERR == 1) {
+//        U1STAbits.OERR = 0;
+//    }
+//    /* get the data */
+//    while (U1STAbits.URXDA == 1) {
+//        U1TXREG = U1RXREG;
+//    }
+//}
 
 void SendMessageDirect(unsigned char* message, int length) {
     unsigned char i = 0;
