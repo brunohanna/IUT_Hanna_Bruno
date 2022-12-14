@@ -52,9 +52,8 @@ namespace RobotInterfaceWPF
             while (robot.byteListReceived.Count > 0)
             {
                 var c = robot.byteListReceived.Dequeue();
-                DecodeMessage(c);
                 TextBoxReception.Text += "0x" + c.ToString("X2") + " ";
-                
+                DecodeMessage(c);
             }
 
         }
@@ -115,11 +114,11 @@ namespace RobotInterfaceWPF
             serialPort1.Write(bytelist, 0, 40);*/
 
             //Test de décodage
-            /*int msgFunction = (int)0x0080;
+            int msgFunction = (int)0x0080;
             string payload = "Bonjour";
             int payloadLength = payload.Length;
             byte[] payloadBytes = Encoding.ASCII.GetBytes(payload);
-            UartEncodeAndSendMessage(msgFunction, payloadLength, payloadBytes);*/
+            UartEncodeAndSendMessage(msgFunction, payloadLength, payloadBytes);
 
 
         }
@@ -228,6 +227,79 @@ namespace RobotInterfaceWPF
                     rcvState = StateReception.Waiting;
                     break;
             }
+        }
+        int[] StateLED;
+        float[] DistanceIR;
+        int[] Speed;
+        void ProcessDecodedMessage(int msgFunction, int msgPayloadLength, byte[] msgPayload)
+        {
+            switch((MessageFunction)msgFunction)
+            {
+                case MessageFunction.Text:
+                    UartEncodeAndSendMessage(msgFunction, msgPayloadLength, msgPayload);
+                    break;
+                case MessageFunction.LED:
+                    if(msgPayloadLength<=2)
+                    {
+                        StateLED[msgPayload[0]-1] = (int)msgPayload[1];
+                        
+                        //Led1CheckB.Checked = (bool)StateLED[0];
+                    }
+                    break;
+                case MessageFunction.IR:
+                    if (msgPayloadLength <= 3)
+                    {
+                        DistanceIR[0] = (float) msgPayload[0];
+                        DistanceIR[1] = (float) msgPayload[1];
+                        DistanceIR[2] = (float) msgPayload[2];
+                        TelemetreTextBox.Text = "IR Gauche : " + DistanceIR[0].ToString("N2") + "cm \nIR Centre : " + DistanceIR[1].ToString("N2") + "cm \nIR Droit : " + DistanceIR[2].ToString("N2") + "cm";
+                    }
+                    break;
+                case MessageFunction.Speed:
+                    if (msgPayloadLength <= 2)
+                    {
+                        Speed[0] = Speed[0];
+                        Speed[1] = Speed[1];
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        public enum MessageFunction
+        {
+            Text = 0x0080,
+            LED = 0x0020,
+            IR = 0x0030,
+            Speed = 0x0040,
+        }
+
+        private void Led1CheckB_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void Led1CheckB_Unchecked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Led2CheckB_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void Led2CheckB_Unchecked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Led3CheckB_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Led3CheckB_Unchecked(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -25,8 +25,16 @@
         <Button x:Name="buttonEnvoyer" Content="Envoyer" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Width="100" Height="30" Click="Button_Envoyer_Click1" Margin="25,11,271,149"/>
         <Button x:Name="buttonClear" Content="Clear" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Width="100" Height="30" Click="buttonClear_Click" Margin="253,13,43,147"/>
         <Button x:Name="buttonTest" Content="Test" Grid.Column="1" HorizontalAlignment="Left" Margin="148,11,0,0" Grid.Row="1" VerticalAlignment="Top" Width="84" Height="30" Click="buttonTest_Click"/>
-        <GroupBox Header="Leds" HorizontalAlignment="Left" Height="100" Margin="10,71,0,0" Grid.Row="1" VerticalAlignment="Top" Width="100"/>
-        <GroupBox Header="Télémètres IR" HorizontalAlignment="Left" Height="100" Margin="118,71,0,0" Grid.Row="1" VerticalAlignment="Top" Width="100"/>
-        <GroupBox Header="Moteurs" HorizontalAlignment="Left" Height="100" Margin="230,71,0,0" Grid.Row="1" VerticalAlignment="Top" Width="150"/>
+        <GroupBox Header="Leds" HorizontalAlignment="Left" Height="100" Margin="10,71,0,0" Grid.Row="1" VerticalAlignment="Top" Width="100">
+            <CheckBox x:Name="Led1CheckB" Content="Led1" HorizontalAlignment="Left" Margin="3,5,0,0" VerticalAlignment="Top" Checked="Led1CheckB_Checked" Unchecked="Led1CheckB_Unchecked"/>
+        </GroupBox>
+        <GroupBox Header="Télémètres IR" HorizontalAlignment="Left" Height="100" Margin="118,71,0,0" Grid.Row="1" VerticalAlignment="Top" Width="139">
+            <TextBox x:Name="TelemetreTextBox" HorizontalAlignment="Left" Height="75" Margin="0,2,0,0" TextWrapping="Wrap" Text="IR Gauche : 0 cm&#xD;&#xA;IR Centre : 0 cm&#xD;&#xA;IR Droit : 0 cm" VerticalAlignment="Top" Width="127"/>
+        </GroupBox>
+        <GroupBox Header="Moteurs" HorizontalAlignment="Left" Height="100" Margin="267,71,0,0" Grid.Row="1" VerticalAlignment="Top" Width="150" Grid.ColumnSpan="2">
+            <TextBox HorizontalAlignment="Left" Height="71" Margin="-1,7,0,-1" TextWrapping="Wrap" Text="Vitesse Gauche : 0%&#xD;&#xA;Vitesse Droit : 0%" VerticalAlignment="Top" Width="139"/>
+        </GroupBox>
+        <CheckBox x:Name="Led2CheckB" Content="Led2" HorizontalAlignment="Left" Height="17" Margin="19,118,0,0" VerticalAlignment="Top" Grid.Row="1" Checked="Led2CheckB_Checked" Unchecked="Led2CheckB_Unchecked"/>
+        <CheckBox x:Name="Led3CheckB" Content="Led3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="19,143,0,0" Grid.Row="1" Checked="Led3CheckB_Checked" Unchecked="Led3CheckB_Unchecked"/>
     </Grid>
 </Window>
