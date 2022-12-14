@@ -113,14 +113,32 @@ namespace RobotInterfaceWPF
             }
             serialPort1.Write(bytelist, 0, 40);*/
 
-            //Test de décodage
-            int msgFunction = (int)0x0080;
+            //Test de décodage texte
+            int msgFunction = (int)MessageFunction.Text;
             string payload = "Bonjour";
             int payloadLength = payload.Length;
             byte[] payloadBytes = Encoding.ASCII.GetBytes(payload);
             UartEncodeAndSendMessage(msgFunction, payloadLength, payloadBytes);
 
 
+
+            payloadBytes = new byte[3];
+            payloadBytes[0] = 45;
+            payloadBytes[1] = 55;
+            payloadBytes[2] = 25;
+            UartEncodeAndSendMessage((int)MessageFunction.IR, payloadBytes.Length, payloadBytes);
+
+            payloadBytes = new byte[2];
+            payloadBytes[0] = 1;
+            payloadBytes[1] = 1;
+            UartEncodeAndSendMessage((int)MessageFunction.LED, payloadBytes.Length, payloadBytes);
+
+            payloadBytes = new byte[2];
+            payloadBytes[0] = 14;
+            payloadBytes[1] = 15;
+            UartEncodeAndSendMessage((int)MessageFunction.Speed, payloadBytes.Length, payloadBytes);
+
+            //Test de décodage LED
         }
 
         byte CalculateChecksum(int msgFunction, int msgPayloadLength, byte[] msgPayload)
@@ -216,6 +234,7 @@ namespace RobotInterfaceWPF
                     {
                         //Success, on a un message valide
                         TextBoxReception.Text += " OK \n";
+                        ProcessDecodedMessage(msgDecodedFunction, msgDecodedPayloadLength, msgDecodedPayload);
                     }
                     else
                     {
@@ -228,38 +247,50 @@ namespace RobotInterfaceWPF
                     break;
             }
         }
-        int[] StateLED;
-        float[] DistanceIR;
-        int[] Speed;
         void ProcessDecodedMessage(int msgFunction, int msgPayloadLength, byte[] msgPayload)
         {
             switch((MessageFunction)msgFunction)
             {
                 case MessageFunction.Text:
-                    UartEncodeAndSendMessage(msgFunction, msgPayloadLength, msgPayload);
+                    //UartEncodeAndSendMessage(msgFunction, msgPayloadLength, msgPayload);
                     break;
                 case MessageFunction.LED:
-                    if(msgPayloadLength<=2)
+                    if(msgPayloadLength==2)
                     {
-                        StateLED[msgPayload[0]-1] = (int)msgPayload[1];
-                        
-                        //Led1CheckB.Checked = (bool)StateLED[0];
+                        switch(msgPayload[0])
+                        {
+                            case 0:
+                                robot.Led1State = (msgPayload[1] == 1);
+                                Led1CheckB.IsChecked = robot.Led1State;
+                                break;
+                            case 1:
+                                robot.Led2State = (msgPayload[1] == 1);
+                                Led2CheckB.IsChecked = robot.Led2State;
+                                break;
+                            case 2:
+                                robot.Led3State = (msgPayload[1] == 1);
+                                Led3CheckB.IsChecked = robot.Led3State;
+                                break;
+                        }
                     }
                     break;
                 case MessageFunction.IR:
                     if (msgPayloadLength <= 3)
                     {
-                        DistanceIR[0] = (float) msgPayload[0];
-                        DistanceIR[1] = (float) msgPayload[1];
-                        DistanceIR[2] = (float) msgPayload[2];
-                        TelemetreTextBox.Text = "IR Gauche : " + DistanceIR[0].ToString("N2") + "cm \nIR Centre : " + DistanceIR[1].ToString("N2") + "cm \nIR Droit : " + DistanceIR[2].ToString("N2") + "cm";
+                        robot.distanceTelemetreGauche = (float)msgPayload[0];
+                        robot.distanceTelemetreCentre = (float)msgPayload[1];
+                        robot.distanceTelemetreDroit = (float)msgPayload[2];
+                        TelemetreTextBox.Text = "IR Gauche : " + robot.distanceTelemetreGauche.ToString("N2") + "cm \nIR Centre : " 
+                            + robot.distanceTelemetreCentre.ToString("N2") + "cm \nIR Droit : " 
+                            + robot.distanceTelemetreDroit.ToString("N2") + "cm";
                     }
                     break;
                 case MessageFunction.Speed:
                     if (msgPayloadLength <= 2)
                     {
-                        Speed[0] = Speed[0];
-                        Speed[1] = Speed[1];
+                        robot.SpeedMotorGauche = (int)msgPayload[0];
+                        robot.SpeedMotorDroit = (int)msgPayload[1];
+                        MoteursTextBox.Text = "Vitesse Gauche : " + robot.SpeedMotorGauche.ToString() + "\n" + "Vitesse Droit : " + robot.SpeedMotorDroit.ToString() + "%";
                     }
                     break;
                 default:
