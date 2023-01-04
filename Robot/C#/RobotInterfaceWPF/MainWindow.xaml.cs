@@ -280,9 +280,9 @@ namespace RobotInterfaceWPF
                         robot.distanceTelemetreGauche = (float)msgPayload[0];
                         robot.distanceTelemetreCentre = (float)msgPayload[1];
                         robot.distanceTelemetreDroit = (float)msgPayload[2];
-                        TelemetreTextBox.Text = "IR Gauche : " + robot.distanceTelemetreGauche.ToString("N2") + "cm \nIR Centre : " 
-                            + robot.distanceTelemetreCentre.ToString("N2") + "cm \nIR Droit : " 
-                            + robot.distanceTelemetreDroit.ToString("N2") + "cm";
+                        TelemetreTextBox.Text = "IR Gauche : " + robot.distanceTelemetreGauche.ToString("N2") + " cm \nIR Centre : " 
+                            + robot.distanceTelemetreCentre.ToString("N2") + " cm \nIR Droit : " 
+                            + robot.distanceTelemetreDroit.ToString("N2") + " cm";
                     }
                     break;
                 case MessageFunction.Speed:
@@ -290,7 +290,7 @@ namespace RobotInterfaceWPF
                     {
                         robot.SpeedMotorGauche = (int)msgPayload[0];
                         robot.SpeedMotorDroit = (int)msgPayload[1];
-                        MoteursTextBox.Text = "Vitesse Gauche : " + robot.SpeedMotorGauche.ToString() + "\n" + "Vitesse Droit : " + robot.SpeedMotorDroit.ToString() + "%";
+                        MoteursTextBox.Text = "Vitesse Gauche : " + robot.SpeedMotorGauche.ToString() + "%\n" + "Vitesse Droit : " + robot.SpeedMotorDroit.ToString() + "%";
                     }
                     break;
                 default:
