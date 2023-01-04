@@ -52,7 +52,7 @@ namespace RobotInterfaceWPF
             while (robot.byteListReceived.Count > 0)
             {
                 var c = robot.byteListReceived.Dequeue();
-                TextBoxReception.Text += "0x" + c.ToString("X2") + " ";
+                //TextBoxReception.Text += "0x" + c.ToString("X2") + " ";
                 DecodeMessage(c);
             }
 
@@ -138,6 +138,13 @@ namespace RobotInterfaceWPF
             payloadBytes[1] = 15;
             UartEncodeAndSendMessage((int)MessageFunction.Speed, payloadBytes.Length, payloadBytes);
 
+            payloadBytes = new byte[5];
+            payloadBytes[0] = 1;
+            payloadBytes[1] = 1;
+            payloadBytes[2] = 0xFF;
+            payloadBytes[3] = 0xFF;
+            payloadBytes[4] = 0xFF;
+            UartEncodeAndSendMessage((int)MessageFunction.RobotState, payloadBytes.Length, payloadBytes);
             //Test de décodage LED
         }
 
@@ -233,7 +240,7 @@ namespace RobotInterfaceWPF
                     if (calculatedChecksum == c)
                     {
                         //Success, on a un message valide
-                        TextBoxReception.Text += " OK \n";
+                        //TextBoxReception.Text += " OK \n";
                         ProcessDecodedMessage(msgDecodedFunction, msgDecodedPayloadLength, msgDecodedPayload);
                     }
                     else
@@ -280,9 +287,10 @@ namespace RobotInterfaceWPF
                         robot.distanceTelemetreGauche = (float)msgPayload[0];
                         robot.distanceTelemetreCentre = (float)msgPayload[1];
                         robot.distanceTelemetreDroit = (float)msgPayload[2];
-                        TelemetreTextBox.Text = "IR Gauche : " + robot.distanceTelemetreGauche.ToString("N2") + " cm \nIR Centre : " 
-                            + robot.distanceTelemetreCentre.ToString("N2") + " cm \nIR Droit : " 
-                            + robot.distanceTelemetreDroit.ToString("N2") + " cm";
+                        TelemetreTextBox.Text =
+                            "IR Gauche : " + robot.distanceTelemetreGauche.ToString("N2") + " cm \n" +
+                            "IR Centre : " + robot.distanceTelemetreCentre.ToString("N2") + " cm \n" +
+                            "IR Droit : " + robot.distanceTelemetreDroit.ToString("N2") + " cm";
                     }
                     break;
                 case MessageFunction.Speed:
@@ -292,6 +300,10 @@ namespace RobotInterfaceWPF
                         robot.SpeedMotorDroit = (int)msgPayload[1];
                         MoteursTextBox.Text = "Vitesse Gauche : " + robot.SpeedMotorGauche.ToString() + "%\n" + "Vitesse Droit : " + robot.SpeedMotorDroit.ToString() + "%";
                     }
+                    break;
+                case MessageFunction.RobotState:
+                    int instant = (((int)msgPayload[1]) << 24) + (((int)msgPayload[2]) << 16) + (((int)msgPayload[3]) << 8) + ((int)msgPayload[4]);
+                    TextBoxReception.Text += "\nRobot␣State␣:␣" + ((StateRobot)(msgPayload[0])).ToString() + "␣-␣" + instant.ToString() + "␣ms";
                     break;
                 default:
                     break;
@@ -303,6 +315,28 @@ namespace RobotInterfaceWPF
             LED = 0x0020,
             IR = 0x0030,
             Speed = 0x0040,
+            RobotState = 0x0050,
+
+        }
+
+        public enum StateRobot
+        {
+            STATE_ATTENTE = 0,
+            STATE_ATTENTE_EN_COURS = 1,
+            STATE_AVANCE = 2,
+            STATE_AVANCE_EN_COURS = 3,
+            STATE_TOURNE_GAUCHE = 4,
+            STATE_TOURNE_GAUCHE_EN_COURS = 5,
+            STATE_TOURNE_DROITE = 6,
+            STATE_TOURNE_DROITE_EN_COURS = 7,
+            STATE_TOURNE_SUR_PLACE_GAUCHE = 8,
+            STATE_TOURNE_SUR_PLACE_GAUCHE_EN_COURS = 9,
+            STATE_TOURNE_SUR_PLACE_DROITE = 10,
+            STATE_TOURNE_SUR_PLACE_DROITE_EN_COURS = 11,
+            STATE_ARRET = 12,
+            STATE_ARRET_EN_COURS = 13,
+            STATE_RECULE = 14,
+            STATE_RECULE_EN_COURS = 15
         }
 
         private void Led1CheckB_Checked(object sender, RoutedEventArgs e)
